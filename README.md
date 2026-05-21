@@ -69,6 +69,7 @@ This section includes sample KQL queries used in Microsoft Sentinel to analyze a
 This query identifies repeated failed login attempts, which may indicate brute-force attacks.
 
 SecurityEvent
+
 | where EventID == 4625
 
 | summarize FailedAttempts = count() by IpAddress, Account, bin(TimeGenerated, 5m)
@@ -79,6 +80,7 @@ SecurityEvent
 This query shows the most active malicious IPs targeting the system.
 
 SecurityEvent
+
 | where EventID == 4625
 
 | summarize AttackCount = count() by IpAddress
@@ -89,6 +91,7 @@ SecurityEvent
 If geo-IP enrichment is enabled in Sentinel, this shows where attacks originate globally.
 
 SecurityEvent
+
 | where EventID == 4625
 
 | extend Geo = tostring(IpAddress)
@@ -101,6 +104,7 @@ SecurityEvent
 Useful for identifying targeted account attacks.
 
 SecurityEvent
+
 | where EventID == 4625
 
 | summarize Attempts = count() by Account
@@ -111,6 +115,7 @@ SecurityEvent
 This shows when attackers are most active.
 
 SecurityEvent
+
 | where EventID == 4625
 
 | summarize AttackVolume = count() by bin(TimeGenerated, 1h)
@@ -121,6 +126,7 @@ SecurityEvent
 Detects accounts being attacked from multiple IPs (possible credential stuffing).
 
 SecurityEvent
+
 | where EventID == 4625
 
 | summarize IPCount = dcount(IpAddress) by Account
