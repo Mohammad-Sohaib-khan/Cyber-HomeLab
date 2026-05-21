@@ -72,6 +72,7 @@ SecurityEvent
 | where EventID == 4625
 
 | summarize FailedAttempts = count() by IpAddress, Account, bin(TimeGenerated, 5m)
+
 | order by FailedAttempts desc
 
 🌍 2. Top Attacker IP Addresses
@@ -79,7 +80,9 @@ This query shows the most active malicious IPs targeting the system.
 
 SecurityEvent
 | where EventID == 4625
+
 | summarize AttackCount = count() by IpAddress
+
 | top 10 by AttackCount desc
 
 📍 3. Geographic Distribution of Attacks
@@ -87,8 +90,11 @@ If geo-IP enrichment is enabled in Sentinel, this shows where attacks originate 
 
 SecurityEvent
 | where EventID == 4625
+
 | extend Geo = tostring(IpAddress)
+
 | summarize Count = count() by Geo
+
 | order by Count desc
 
 👤 4. Failed Login Attempts by Username
@@ -96,7 +102,9 @@ Useful for identifying targeted account attacks.
 
 SecurityEvent
 | where EventID == 4625
+
 | summarize Attempts = count() by Account
+
 | order by Attempts desc
 
 ⏱️ 5. Time-Based Attack Pattern Analysis
@@ -104,7 +112,9 @@ This shows when attackers are most active.
 
 SecurityEvent
 | where EventID == 4625
+
 | summarize AttackVolume = count() by bin(TimeGenerated, 1h)
+
 | render timechart
 
 ⚠️ 6. Suspicious Login Pattern (Multiple IPs per Account)
@@ -112,8 +122,11 @@ Detects accounts being attacked from multiple IPs (possible credential stuffing)
 
 SecurityEvent
 | where EventID == 4625
+
 | summarize IPCount = dcount(IpAddress) by Account
+
 | where IPCount > 3
+
 | order by IPCount desc
 
 🌍 Attack Map Visualization
