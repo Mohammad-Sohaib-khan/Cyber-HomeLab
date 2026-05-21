@@ -70,6 +70,7 @@ This query identifies repeated failed login attempts, which may indicate brute-f
 
 SecurityEvent
 | where EventID == 4625
+
 | summarize FailedAttempts = count() by IpAddress, Account, bin(TimeGenerated, 5m)
 | order by FailedAttempts desc
 
