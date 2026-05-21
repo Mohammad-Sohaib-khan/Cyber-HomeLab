@@ -19,9 +19,11 @@ Integrate Microsoft Sentinel for threat detection
 Analyze failed login attempts and attacker behavior
 Visualize global attack sources using geolocation mapping
 
+
 🏗️ Architecture
 
 The lab environment consists of:
+
 
 Azure Virtual Machine (Honeypot)
 Network Security Group (NSG) allowing inbound traffic
@@ -29,7 +31,9 @@ Log Analytics Workspace
 Microsoft Sentinel (SIEM)
 Azure Monitor / Diagnostic Settings
 
+
 ⚙️ Setup Process
+
 
 1. Azure Subscription & Virtual Machine
 
@@ -57,7 +61,9 @@ Threat detection
 Log querying using KQL
 Security event correlation
 
+
 📊 Key Analyses Performed
+
 
 Using Kusto Query Language (KQL), the following were analyzed:
 
@@ -66,11 +72,15 @@ IP address tracking of attackers
 Geographic distribution of attack sources
 Frequency of malicious login attempts
 
+
 🔍 KQL Query Examples (Threat Detection)
+
 
 This section includes sample KQL queries used in Microsoft Sentinel to analyze attacker behavior, failed logins, and suspicious activity from the honeypot VM.
 
+
 🚨 1. Failed Login Attempts (Brute Force Detection)
+
 
 This query identifies repeated failed login attempts, which may indicate brute-force attacks.
 
@@ -82,7 +92,9 @@ SecurityEvent
 
 | order by FailedAttempts desc
 
+
 🌍 2. Top Attacker IP Addresses
+
 
 This query shows the most active malicious IPs targeting the system.
 
@@ -94,7 +106,9 @@ SecurityEvent
 
 | top 10 by AttackCount desc
 
+
 📍 3. Geographic Distribution of Attacks
+
 
 If geo-IP enrichment is enabled in Sentinel, this shows where attacks originate globally.
 
